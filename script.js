@@ -35,9 +35,10 @@ const formStatus = form.querySelector('.form-status');
 phoneInput.addEventListener('input', () => {
   phoneInput.setCustomValidity('');
   formStatus.textContent = '';
+  formStatus.classList.remove('success', 'error');
 });
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const digits = phoneInput.value.replace(/\D/g, '');
   if (digits.length < 10) {
@@ -46,7 +47,37 @@ form.addEventListener('submit', (event) => {
     return;
   }
 
-  formStatus.textContent = 'Поля заполнены корректно. Для получения заявок подключите форму к рабочей почте или CRM.';
-  formStatus.classList.add('success');
-  form.reset();
+  const endpoint = window.OPEN_CONSULTING_FORM_ENDPOINT;
+  if (!endpoint || !/^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(endpoint)) {
+    formStatus.textContent = 'Форма пока не подключена. Добавьте endpoint Formspree в form-config.js.';
+    formStatus.classList.add('error');
+    return;
+  }
+
+  const submitButton = form.querySelector('[type="submit"]');
+  submitButton.disabled = true;
+  formStatus.textContent = 'Отправляем заявку…';
+  formStatus.classList.remove('success', 'error');
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form)
+    });
+    const result = await response.json();
+    if (!response.ok) {
+      const validationError = result.errors?.map((item) => item.message).join(' ');
+      throw new Error(validationError || 'Сервис не принял заявку. Проверьте форму и попробуйте ещё раз.');
+    }
+
+    form.reset();
+    formStatus.textContent = 'Спасибо! Заявка отправлена. Мы свяжемся с вами.';
+    formStatus.classList.add('success');
+  } catch (error) {
+    formStatus.textContent = error.message || 'Не удалось отправить заявку. Проверьте подключение к интернету и повторите попытку.';
+    formStatus.classList.add('error');
+  } finally {
+    submitButton.disabled = false;
+  }
 });
