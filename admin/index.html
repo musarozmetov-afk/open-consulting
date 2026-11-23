@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f36b18">
+  <title>Админ-панель — OPEN CONSULTING</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <main class="admin-shell">
+    <a class="back-link" href="/">← На сайт OPEN CONSULTING</a>
+    <section class="admin-card" aria-labelledby="admin-title">
+      <div class="admin-brand"><span>O<span>.</span></span><small>OPEN<br>CONSULTING</small></div>
+      <p class="eyebrow">ЗАКРЫТЫЙ РАЗДЕЛ</p>
+      <h1 id="admin-title">Админ-панель</h1>
+      <p class="intro">Управляйте главным текстом сайта и номером WhatsApp.</p>
+
+      <form id="login-form" class="stack-form">
+        <label for="admin-key">Ключ администратора</label>
+        <input id="admin-key" name="key" type="password" autocomplete="current-password" required minlength="20" placeholder="Введите ключ">
+        <button class="button" type="submit">Войти <span>↗</span></button>
+        <p class="status" id="login-status" aria-live="polite" role="status"></p>
+      </form>
+
+      <section id="editor-panel" hidden>
+        <div class="panel-heading"><h2>Основные данные</h2><button class="logout" id="logout-button" type="button">Выйти</button></div>
+        <form id="content-form" class="stack-form">
+          <label for="hero-lead">Текст под главным заголовком</label>
+          <textarea id="hero-lead" name="heroLead" rows="4" required minlength="10" maxlength="240"></textarea>
+          <label for="whatsapp-number">WhatsApp, международный формат</label>
+          <input id="whatsapp-number" name="whatsappNumber" type="tel" inputmode="tel" placeholder="+7 775 369 94 15" required>
+          <button class="button" type="submit">Сохранить изменения <span>↗</span></button>
+          <p class="status" id="editor-status" aria-live="polite" role="status"></p>
+        </form>
+      </section>
+    </section>
+    <p class="security-note">Сеанс автоматически закрывается через 12 часов. Не передавайте ключ другим людям.</p>
+  </main>
+</body>
+</html>

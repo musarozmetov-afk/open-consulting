@@ -28,16 +28,27 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 document.querySelector('#year').textContent = new Date().getFullYear();
 
-const whatsappNumber = String(window.OPEN_CONSULTING_WHATSAPP || '').replace(/\D/g, '');
-if (/^7\d{10}$/.test(whatsappNumber)) {
-  const formattedNumber = `+7 ${whatsappNumber.slice(1, 4)} ${whatsappNumber.slice(4, 7)} ${whatsappNumber.slice(7, 9)} ${whatsappNumber.slice(9)}`;
-  document.querySelectorAll('.contact-whatsapp, .whatsapp-float').forEach((link) => {
-    link.href = `https://wa.me/${whatsappNumber}`;
-  });
-  document.querySelector('#contact-phone').textContent = formattedNumber;
-} else {
-  document.querySelectorAll('.contact-whatsapp, .whatsapp-float').forEach((link) => link.hidden = true);
+function applyWhatsappNumber(value) {
+  const whatsappNumber = String(value || '').replace(/\D/g, '');
+  if (/^7\d{10}$/.test(whatsappNumber)) {
+    const formattedNumber = `+7 ${whatsappNumber.slice(1, 4)} ${whatsappNumber.slice(4, 7)} ${whatsappNumber.slice(7, 9)} ${whatsappNumber.slice(9)}`;
+    document.querySelectorAll('.contact-whatsapp, .whatsapp-float').forEach((link) => {
+      link.href = `https://wa.me/${whatsappNumber}`;
+    });
+    document.querySelector('#contact-phone').textContent = formattedNumber;
+  }
 }
+
+applyWhatsappNumber(window.OPEN_CONSULTING_WHATSAPP);
+
+fetch('/api/site-content')
+  .then((response) => response.ok ? response.json() : null)
+  .then((content) => {
+    if (!content) return;
+    if (typeof content.heroLead === 'string') document.querySelector('.hero-lead').textContent = content.heroLead;
+    if (content.whatsappNumber) applyWhatsappNumber(content.whatsappNumber);
+  })
+  .catch(() => {});
 
 const form = document.querySelector('#contact-form');
 const phoneInput = form.elements.phone;
