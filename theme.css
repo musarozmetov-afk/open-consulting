@@ -1,0 +1,91 @@
+:root{
+  --ink:#211b2d;
+  --muted:#625d68;
+  --purple:#f36b18;
+  --purple-dark:#d94c08;
+  --lavender:#fff0e3;
+  --red:#e44b38;
+  --paper:#fffaf6;
+  --line:#eddfd5;
+}
+
+h1{font-size:clamp(64px,7.2vw,94px);letter-spacing:-5.5px}
+.intro h2,.section-heading h2,.approach h2,.process h2,.contact h2{font-size:clamp(44px,5vw,66px);letter-spacing:-3px}
+.hero-lead{font-size:17px;line-height:1.75}
+.section-heading>p,.intro-content>p{font-size:15px}
+.approach-lead,.contact-copy>p,.process-heading>p{font-size:15px}
+.service-card h3{font-size:23px}
+.service-card p,.step p{font-size:13px}
+.benefit h3{font-size:15px}
+.benefit p{font-size:13px}
+.nav a{font-size:13px}
+.nav-cta{font-size:13px}
+.contact-form label{font-size:12px}
+.contact-form input,.contact-form textarea,.contact-form select{font-size:14px}
+.contact-form .form-privacy{font-size:10px}
+
+.nav-contact-link{display:inline-flex;align-items:center;gap:6px;color:#fff!important;background:var(--purple);padding:11px 15px;border-radius:4px;font-weight:700;box-shadow:0 6px 16px #f36b1830}
+.nav-contact-link:hover{background:var(--purple-dark);color:#fff!important}
+.nav-contact-link span{font-size:15px}
+.contact-whatsapp{display:inline-flex;align-items:center;gap:15px;margin-top:19px;padding:15px 19px;background:#fff;border-left:4px solid var(--purple);box-shadow:0 10px 28px #5a35130e;transition:transform .2s,box-shadow .2s}
+.contact-whatsapp:hover{transform:translateY(-2px);box-shadow:0 14px 30px #5a35131c}
+.contact-whatsapp-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#e9f8ef;color:#159447;font-size:23px;font-weight:700}
+.contact-whatsapp small{display:block;color:var(--purple-dark);font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:4px}
+.contact-whatsapp strong{font-family:var(--font);font-size:18px;letter-spacing:.2px;color:var(--ink)}
+.whatsapp-float{position:fixed;z-index:30;right:24px;bottom:24px;display:flex;align-items:center;gap:10px;padding:13px 18px;border-radius:999px;background:#20b958;color:#fff;font-size:14px;font-weight:700;box-shadow:0 9px 28px #137a3d40;transition:transform .2s,box-shadow .2s}
+.whatsapp-float:hover{color:#fff;transform:translateY(-3px);box-shadow:0 14px 32px #137a3d55}
+.whatsapp-float-icon{font-size:21px;line-height:1}
+
+@media(max-width:900px){
+  .nav-contact-link{padding:9px 11px}
+  .service-card h3{font-size:21px}
+}
+@media(max-width:680px){
+  h1{font-size:61px;letter-spacing:-4px}
+  .intro h2,.section-heading h2,.approach h2,.process h2,.contact h2{font-size:44px;letter-spacing:-2.2px}
+  .nav-contact-link{align-self:flex-start;margin:10px 0 0;padding:11px 14px!important}
+  .contact-whatsapp{margin-top:10px}
+  .contact-whatsapp strong{font-size:17px}
+  .whatsapp-float{right:14px;bottom:14px;padding:14px;border-radius:50%;width:54px;height:54px;justify-content:center}
+  .whatsapp-float>span:last-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .contact-stamp{display:none}
+}
+
+/* White surfaces, black copy, and orange emphasis. */
+:root{--ink:#171717;--muted:#55515a;--paper:#fff;--line:#e9e5e1;--lavender:#fff2e8}
+body{background:#fff;color:#171717}
+.header{background:rgba(255,255,255,.94)}
+.hero-orb{background:radial-gradient(circle,#fff0e3 0%,rgba(255,240,227,0) 70%)}
+.intro,.services,.approach,.contact{background:#fff}
+.service-purple,.service-red,.service-white{background:#fff;color:#171717;border-top:3px solid var(--purple);box-shadow:0 8px 28px #3b2c1c0c}
+.service-card h3{color:#171717}
+.service-card p{color:#5c5860}
+.service-card a{border-color:#e9e2dc;color:#171717}
+.service-purple p,.service-red p{color:#5c5860}
+.process{background:#fff;color:#171717}
+.process .section-label{color:#5c5860}
+.process .label-line{background:#edcbb5}
+.process h2 span{color:var(--purple)}
+.process-heading>p{color:#5c5860}
+.step,.step+.step{border-color:#eadfd6}
+.step-no{color:var(--purple-dark)}
+.step h3{color:#171717}
+.step p{color:#5c5860}
+.step-icon{color:var(--purple)}
+.contact-form{border-top:3px solid var(--purple);box-shadow:0 12px 35px #3b2c1c10}
+.footer{background:#fff;color:#171717;border-top:1px solid #eee7e1}
+.footer-brand .brand-mark{color:var(--purple)}
+.footer-brand .brand-name{color:#171717}
+.footer-main>p{color:#55515a}
+.footer-bottom{border-color:#e9e5e1;color:#69636c}
+.footer-bottom a{color:#171717}
+.footer a:hover{color:var(--purple-dark)}
+.whatsapp-float{padding:11px 17px}
+.whatsapp-float-label{display:flex;flex-direction:column;gap:2px}
+.whatsapp-float-label small{font-size:11px;font-weight:600;opacity:.93}
+@media(max-width:680px){
+  .whatsapp-float{right:12px;bottom:12px;width:auto;height:auto;min-height:54px;padding:9px 13px;border-radius:999px;gap:8px}
+  .whatsapp-float>span:last-child{position:static;width:auto;height:auto;overflow:visible;clip:auto}
+  .whatsapp-float-label{font-size:12px}
+  .whatsapp-float-label small{font-size:10px}
+}
