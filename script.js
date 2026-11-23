@@ -45,6 +45,13 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
 document.querySelector('#year').textContent = new Date().getFullYear();
 
+const serviceSelect = document.querySelector('#contact-form select[name="service"]');
+document.querySelectorAll('[data-service]').forEach((link) => {
+  link.addEventListener('click', () => {
+    if (serviceSelect) serviceSelect.value = link.dataset.service;
+  });
+});
+
 function applyWhatsappNumber(value) {
   const whatsappNumber = String(value || '').replace(/\D/g, '');
   if (/^7\d{10}$/.test(whatsappNumber)) {
@@ -70,6 +77,15 @@ fetch('/api/site-content')
 const form = document.querySelector('#contact-form');
 const phoneInput = form.elements.phone;
 const formStatus = form.querySelector('.form-status');
+const callbackCheckbox = form.elements.callback_request;
+const callbackTimeWrap = document.querySelector('#callback-time-wrap');
+
+function updateCallbackFields() {
+  callbackTimeWrap.hidden = !callbackCheckbox.checked;
+}
+
+callbackCheckbox.addEventListener('change', updateCallbackFields);
+updateCallbackFields();
 
 phoneInput.addEventListener('input', () => {
   phoneInput.setCustomValidity('');
@@ -111,6 +127,7 @@ form.addEventListener('submit', async (event) => {
     }
 
     form.reset();
+    updateCallbackFields();
     formStatus.textContent = 'Спасибо! Заявка отправлена. Мы свяжемся с вами.';
     formStatus.classList.add('success');
   } catch (error) {
