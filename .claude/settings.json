@@ -2,7 +2,8 @@
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
     "headroom@headroom-marketplace": true,
-    "headroom-skill@headroom-marketplace": true
+    "headroom-skill@headroom-marketplace": true,
+    "claude-code-setup@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "thedotmack": {
@@ -15,6 +16,12 @@
       "source": {
         "source": "github",
         "repo": "headroomlabs-ai/headroom"
+      }
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
       }
     }
   }
