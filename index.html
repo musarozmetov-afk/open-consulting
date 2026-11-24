@@ -14,10 +14,11 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="form-styles.css">
-  <link rel="stylesheet" href="theme.css?v=fcbc59c">
+  <link rel="stylesheet" href="theme.css?v=languages-1">
   <script src="contact-config.js" defer></script>
   <script src="form-config.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="i18n.js?v=languages-1" defer></script>
+  <script src="script.js?v=languages-1" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Перейти к содержимому</a>
@@ -27,6 +28,11 @@
         <span class="brand-mark">O<span>.</span></span>
         <span class="brand-name">OPEN<br>CONSULTING</span>
       </a>
+      <div class="language-switcher" role="group" aria-label="Язык сайта">
+        <button type="button" data-language="ru" aria-label="Русский" aria-pressed="true">RU</button>
+        <button type="button" data-language="en" aria-label="Английский" aria-pressed="false">EN</button>
+        <button type="button" data-language="kk" aria-label="Казахский" aria-pressed="false">KZ</button>
+      </div>
       <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-navigation"><span></span><span></span></button>
       <nav class="nav" id="primary-navigation" aria-label="Главная навигация">
         <a href="#about">О компании</a><a href="#services">Услуги</a><a href="#why-us">Почему мы</a><a href="#offers">Форматы</a><a href="#process">Этапы</a><a href="#faq">FAQ</a>
