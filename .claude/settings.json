@@ -1,4 +1,9 @@
 {
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true,
+    "headroom@headroom-marketplace": true,
+    "headroom-skill@headroom-marketplace": true
+  },
   "extraKnownMarketplaces": {
     "thedotmack": {
       "source": {
@@ -12,9 +17,5 @@
         "repo": "headroomlabs-ai/headroom"
       }
     }
-  },
-  "enabledPlugins": {
-    "claude-mem@thedotmack": true,
-    "headroom@headroom-marketplace": true
   }
 }
