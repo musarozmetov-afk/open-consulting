@@ -238,6 +238,7 @@
     "КАЗАХСТАН · БИЗНЕС-СОПРОВОЖДЕНИЕ": { en: "KAZAKHSTAN · BUSINESS SUPPORT", kk: "ҚАЗАҚСТАН · БИЗНЕСТІ СҮЙЕМЕЛДЕУ" },
     "СВЯЗАТЬСЯ С НАМИ ↗": { en: "CONTACT US ↗", kk: "БІЗБЕН БАЙЛАНЫСУ ↗" },
     "Написать в WhatsApp OPEN CONSULTING по номеру +7 775 369 94 15": { en: "Message OPEN CONSULTING on WhatsApp at +7 775 369 94 15", kk: "+7 775 369 94 15 нөмірі бойынша OPEN CONSULTING-ке WhatsApp арқылы жазу" },
+    "Наводим порядок в цифрах, документах и процессах, чтобы вы могли сосредоточиться на росте.": { en: "We bring order to your numbers, documents and processes so you can focus on growth.", kk: "Сіз өсуге назар аудара алуыңыз үшін сандарды, құжаттар мен процестерді ретке келтіреміз." },
     "Отправляем заявку…": { en: "Sending your inquiry…", kk: "Өтінім жіберілуде…" },
     "Спасибо! Заявка отправлена. Мы свяжемся с вами.": { en: "Thank you! Your inquiry has been sent. We will be in touch.", kk: "Рақмет! Өтінім жіберілді. Сізбен хабарласамыз." },
     "Форма пока не подключена. Добавьте endpoint Formspree в form-config.js.": { en: "The form is not connected yet. Add the Formspree endpoint in form-config.js.", kk: "Форма әлі қосылмаған. form-config.js файлына Formspree endpoint мекенжайын қосыңыз." },
@@ -281,7 +282,7 @@
     currentLanguage = language;
     document.documentElement.lang = language;
     document.title = translated('OPEN CONSULTING — решения для бизнеса в Казахстане', language);
-    sourceTextNodes.forEach(({ node, source }) => { node.nodeValue = replaceText(source, language, node); });
+    sourceTextNodes.forEach((binding) => { binding.node.nodeValue = replaceText(sourceFor(binding, language), language, binding.node); });
     sourceAttributes.forEach(({ element, attribute, source }) => {
       element.setAttribute(attribute, translated(source, language));
     });
@@ -297,9 +298,21 @@
     });
   });
 
-  function refreshNode(node) {
+  // Replaces a node's Russian source text (e.g. from the admin panel). If the new
+  // text has no translation, other languages keep showing the previous translated text.
+  function refreshNode(node, source = node.nodeValue) {
     const binding = sourceTextNodes.find((item) => item.node === node);
-    if (binding) binding.source = node.nodeValue;
+    if (!binding) {
+      node.nodeValue = source;
+      return;
+    }
+    if (!binding.fallback) binding.fallback = binding.source;
+    binding.source = source;
+  }
+
+  function sourceFor({ source, fallback }, language) {
+    if (language === 'ru' || !fallback || translations[source.trim()]) return source;
+    return fallback;
   }
 
   window.siteI18n = {

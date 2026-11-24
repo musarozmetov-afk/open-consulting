@@ -72,9 +72,13 @@ fetch('/api/site-content')
     if (!content) return;
     if (typeof content.heroLead === 'string') {
       const heroLead = document.querySelector('.hero-lead');
-      heroLead.textContent = content.heroLead;
-      window.siteI18n?.refreshNode(heroLead.firstChild);
-      window.siteI18n?.apply(window.siteI18n.current());
+      const textNode = heroLead.firstChild;
+      if (window.siteI18n && textNode?.nodeType === Node.TEXT_NODE) {
+        window.siteI18n.refreshNode(textNode, content.heroLead);
+        window.siteI18n.apply(window.siteI18n.current());
+      } else {
+        heroLead.textContent = content.heroLead;
+      }
     }
     if (content.whatsappNumber) applyWhatsappNumber(content.whatsappNumber);
   })
