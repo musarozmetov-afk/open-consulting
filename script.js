@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js');
+
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.nav');
 const localize = (text) => window.siteI18n ? window.siteI18n.t(text) : text;
@@ -44,6 +46,19 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+// Highlight the menu item of the section currently on screen.
+const navLinks = [...navigation.querySelectorAll('a[href^="#"]:not(.nav-contact-link)')];
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+navLinks.forEach((link) => {
+  const section = document.querySelector(link.getAttribute('href'));
+  if (section) sectionObserver.observe(section);
+});
 document.querySelector('#year').textContent = new Date().getFullYear();
 
 const serviceSelect = document.querySelector('#contact-form select[name="service"]');
@@ -57,7 +72,7 @@ function applyWhatsappNumber(value) {
   const whatsappNumber = String(value || '').replace(/\D/g, '');
   if (/^7\d{10}$/.test(whatsappNumber)) {
     const formattedNumber = `+7 ${whatsappNumber.slice(1, 4)} ${whatsappNumber.slice(4, 7)} ${whatsappNumber.slice(7, 9)} ${whatsappNumber.slice(9)}`;
-    document.querySelectorAll('.contact-whatsapp, .whatsapp-float').forEach((link) => {
+    document.querySelectorAll('[data-whatsapp-link]').forEach((link) => {
       link.href = `https://wa.me/${whatsappNumber}`;
     });
     document.querySelector('#contact-phone').textContent = formattedNumber;
