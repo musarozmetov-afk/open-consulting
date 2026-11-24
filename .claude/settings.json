@@ -3,7 +3,8 @@
     "claude-mem@thedotmack": true,
     "headroom@headroom-marketplace": true,
     "headroom-skill@headroom-marketplace": true,
-    "claude-code-setup@claude-plugins-official": true
+    "claude-code-setup@claude-plugins-official": true,
+    "task-observer@one-skill-to-rule-them-all": true
   },
   "extraKnownMarketplaces": {
     "thedotmack": {
@@ -22,6 +23,12 @@
       "source": {
         "source": "github",
         "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "one-skill-to-rule-them-all": {
+      "source": {
+        "source": "github",
+        "repo": "rebelytics/one-skill-to-rule-them-all"
       }
     }
   }
