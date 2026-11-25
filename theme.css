@@ -277,7 +277,7 @@ h1 { max-width: 720px; margin: 26px 0 24px; color: #fff; font-size: clamp(46px, 
 .contact-whatsapp strong { color: #fff; font: 700 19px var(--font); }
 .contact-call { display: inline-flex; min-height: 54px; align-items: center; gap: 8px; padding: 0 20px; border: 1px solid var(--line-dark); border-radius: var(--radius); color: #fff; font-size: 14px; font-weight: 700; transition: border-color .2s; }
 .contact-call:hover { border-color: #fff; }
-.contact-call span { color: var(--orange-light); }
+.contact-call .icon { width: 18px; height: 18px; color: var(--orange-light); }
 /* 2GIS rating badge (hero and office card) */
 .rating-badge { display: inline-flex; align-items: center; gap: 8px; color: var(--on-dark); font-size: 13px; transition: color .2s; }
 .rating-badge:hover { color: #fff; }
