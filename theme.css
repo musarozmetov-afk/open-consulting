@@ -34,7 +34,8 @@ h1 span, h2 span { color: var(--orange); }
 .skip-link:focus { transform: translateY(0); }
 
 /* Header */
-.header { position: sticky; z-index: 20; top: 0; height: var(--header-h); border-bottom: 1px solid #20242B12; background: rgba(255,255,255,.97); backdrop-filter: blur(14px); }
+.header { position: sticky; z-index: 20; top: 0; height: var(--header-h); border-bottom: 1px solid #20242B12; background: rgba(255,255,255,.97); backdrop-filter: blur(14px);  transition: box-shadow .25s, background .25s; }
+.header.scrolled { box-shadow: 0 6px 24px rgba(40, 40, 42, .08); }
 .nav-wrap { display: flex; height: 100%; align-items: center; gap: 16px; }
 .brand { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 11px; color: var(--logo-ink); }
 .brand-mark { display: block; width: auto; height: 34px; fill: var(--logo); }
@@ -89,9 +90,11 @@ h1 { max-width: 720px; margin: 22px 0 20px; font-size: clamp(44px, 5vw, 66px); f
 .hero-visual > img { display: block; width: 100%; height: 440px; border-radius: 16px; object-fit: cover; }
 .image-tag { position: absolute; top: 18px; left: 0; display: flex; align-items: center; gap: 11px; padding: 13px 16px; border-radius: 10px; background: #fff; box-shadow: 0 8px 25px #20242B18; font-size: 12px; line-height: 1.5; }
 .image-tag strong { font-size: 13px; }
-.tag-icon { color: var(--orange); font: 800 18px var(--font); }
+.tag-icon { display: grid; place-items: center; }
+.mini-mark { display: block; width: 30px; height: auto; fill: var(--logo); }
 .floating-card { position: absolute; left: 4px; bottom: 0; display: flex; width: 260px; align-items: center; justify-content: space-between; padding: 16px 18px; border-radius: 12px; background: var(--ink); color: #fff; font-size: 12px; line-height: 1.5; box-shadow: 0 12px 28px #20242B25; }
-.floating-number { color: var(--orange); font: 800 21px var(--font); }
+.floating-number { display: grid; place-items: center; }
+.floating-number .mini-mark { width: 34px; }
 .floating-arrow { color: #FF8A5C; font-size: 18px; }
 .hero-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin-top: 28px; }
 .hero-category-label { color: var(--muted); font-size: 13px; font-weight: 700; }
@@ -140,7 +143,8 @@ h1 { max-width: 720px; margin: 22px 0 20px; font-size: clamp(44px, 5vw, 66px); f
 .service-card { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 24px 26px; border: 1px solid var(--line); border-top: 3px solid var(--orange); border-radius: var(--radius); background: #fff; box-shadow: 0 2px 8px #20242B08; transition: transform .22s, box-shadow .22s, border-color .22s; }
 .service-card:hover { transform: translateY(-3px); border-color: var(--orange); box-shadow: 0 12px 28px #20242B12; }
 .service-top { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; color: #777D84; font-size: 11px; }
-.service-icon { color: var(--orange-dark); font: 700 25px/1 var(--font); }
+.service-icon { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 12px; background: var(--orange-soft); color: var(--orange-dark); }
+.service-icon .icon { width: 24px; height: 24px; }
 .service-content { display: flex; flex-direction: column; }
 .service-content h3 { margin: 1px 0 10px; font-size: 22px; line-height: 1.25; letter-spacing: -.03em; }
 .service-content > p { flex: 1; color: var(--text); font-size: 15px; line-height: 1.7; }
@@ -166,6 +170,7 @@ h1 { max-width: 720px; margin: 22px 0 20px; font-size: clamp(44px, 5vw, 66px); f
 .benefit-card { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; transition: border-color .2s, box-shadow .2s; }
 .benefit-card:hover { border-color: var(--orange); box-shadow: 0 12px 25px #20242B0D; }
 .benefit-icon { display: grid; width: 38px; height: 38px; margin-bottom: 14px; place-items: center; border-radius: 50%; background: var(--orange-soft); color: var(--orange-dark); font: 700 18px var(--font); }
+.benefit-icon .icon { width: 20px; height: 20px; }
 .benefit-card h3 { margin-bottom: 6px; font-size: 16px; line-height: 1.35; }
 .benefit-card p { margin: 0; color: var(--text); font-size: 14px; line-height: 1.6; }
 
@@ -193,7 +198,8 @@ h1 { max-width: 720px; margin: 22px 0 20px; font-size: clamp(44px, 5vw, 66px); f
 .step { padding: 19px 20px 0; border-top: 1px solid #ffffff55; border-left: 1px solid #ffffff2e; }
 .step:first-child { padding-left: 0; border-left: 0; }
 .step-no { display: block; color: #FF6A3D; font-size: 12px; font-weight: 800; }
-.step-icon { display: block; margin: 22px 0 12px; color: #FF6A3D; font-size: 24px; }
+.step-icon { display: grid; width: 42px; height: 42px; margin: 20px 0 12px; place-items: center; border: 1px solid rgba(255, 106, 61, .45); border-radius: 12px; color: #FF6A3D; }
+.step-icon .icon { width: 22px; height: 22px; }
 .step h3 { margin-bottom: 8px; color: #fff; font-size: 17px; }
 .step p { max-width: 220px; color: #D0D3D7; font-size: 14px; line-height: 1.65; }
 
@@ -262,17 +268,21 @@ h1 { max-width: 720px; margin: 22px 0 20px; font-size: clamp(44px, 5vw, 66px); f
 .form-honeypot { position: absolute !important; width: 1px !important; height: 1px !important; margin: -1px !important; padding: 0 !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
 
 /* Footer */
-.footer { padding-top: 32px; border-top: 1px solid var(--line); background: #fff; }
-.footer-main { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-bottom: 24px; }
-.footer-main > p { margin: 0; color: var(--muted); font: 600 14px/1.5 var(--font); }
+.footer { padding-top: 44px; border-top: 1px solid var(--line); background: linear-gradient(180deg, #FFFFFF 0%, var(--cream) 100%); }
 .footer a { transition: color .2s; }
 .footer a:hover { color: var(--orange-dark); }
-.footer-contacts { display: flex; flex-wrap: wrap; gap: 8px 20px; font: 700 15px var(--font); }
-.footer-contacts a:hover { color: var(--orange-dark); }
-.footer-top, .footer-bottom { color: #686D73; font-size: 11px; letter-spacing: .7px; }
-.footer-top span { margin-left: 8px; color: var(--orange-dark); font-size: 16px; }
-.footer-bottom { display: flex; min-height: 54px; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid var(--line); }
-.footer-bottom a { color: var(--ink); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; padding-bottom: 32px; }
+.footer-about p { margin: 16px 0 0; color: var(--muted); font: 600 14px/1.5 var(--font); }
+.footer-col { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; font-size: 15px; }
+.footer-title { margin: 0 0 4px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; }
+.footer-col a[href^="tel:"] { font: 700 17px var(--font); }
+.footer-cta { color: var(--orange-dark); font-weight: 700; }
+.footer-top { color: #686D73; font-size: 11px; letter-spacing: .7px; }
+.footer-top span { margin-left: 6px; color: var(--orange-dark); font-size: 15px; }
+.footer-bottom { display: flex; min-height: 56px; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid var(--line); color: #686D73; font-size: 12px; }
+.form-privacy a { color: var(--orange-dark); text-decoration: underline; }
+/* Keep "Наверх" clear of the floating WhatsApp button on desktop. */
+@media (min-width: 861px) { .footer-bottom { padding-right: 190px; } }
 
 /* Floating contacts */
 .whatsapp-float { position: fixed; z-index: 30; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 9px; padding: 11px 16px; border-radius: 999px; background: var(--ink); color: #fff; box-shadow: 0 8px 24px #20242B30; font-size: 13px; font-weight: 700; transition: transform .2s, background .2s; }
@@ -358,7 +368,10 @@ h1 { max-width: 720px; margin: 22px 0 20px; font-size: clamp(44px, 5vw, 66px); f
   .why-photo img { height: min(56vw, 300px); }
   .benefit-grid { grid-template-columns: 1fr; gap: 8px; margin-top: 18px; }
   .benefit-card { display: grid; grid-template-columns: 32px 1fr; column-gap: 12px; padding: 14px; }
-  .benefit-icon { grid-row: span 2; width: 32px; height: 32px; margin: 0; font-size: 16px; }
+  .benefit-icon { grid-row: span 2; width: 34px; height: 34px; margin: 0; }
+  .benefit-icon .icon { width: 18px; height: 18px; }
+  .service-icon { width: 38px; height: 38px; border-radius: 10px; }
+  .service-icon .icon { width: 21px; height: 21px; }
   .benefit-card h3 { margin-bottom: 3px; font-size: 15px; }
   .benefit-card p { font-size: 13px; }
 
@@ -389,11 +402,9 @@ h1 { max-width: 720px; margin: 22px 0 20px; font-size: clamp(44px, 5vw, 66px); f
   .contact-form { padding: 22px 16px; }
   .form-row { grid-template-columns: 1fr; }
 
-  .footer-main > p { display: none; }
-  .footer-main { flex-wrap: wrap; }
-  .footer-contacts { order: 3; flex: 0 0 100%; font-size: 15px; }
-  .footer-bottom { flex-wrap: wrap; padding: 12px 0; font-size: 10px; }
-  .footer-bottom span:nth-child(2) { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 26px 20px; padding-bottom: 24px; }
+  .footer-about { grid-column: 1 / -1; }
+  .footer-bottom { flex-wrap: wrap; padding: 14px 0; font-size: 12px; }
 
   /* Bottom contact bar replaces the floating WhatsApp button on phones. */
   body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }

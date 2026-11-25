@@ -1,5 +1,11 @@
 document.documentElement.classList.add('js');
 
+// Lift the header with a soft shadow once the page is scrolled.
+const header = document.querySelector('.header');
+const updateHeaderShadow = () => header.classList.toggle('scrolled', window.scrollY > 8);
+window.addEventListener('scroll', updateHeaderShadow, { passive: true });
+updateHeaderShadow();
+
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('.nav');
 const localize = (text) => window.siteI18n ? window.siteI18n.t(text) : text;
