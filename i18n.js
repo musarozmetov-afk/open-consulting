@@ -322,7 +322,16 @@
     refreshNode
   };
 
+  // A shared link can pick the language: ?lang=en, ?lang=kk (or kz), ?lang=ru.
+  const urlLanguage = { ru: 'ru', en: 'en', kk: 'kk', kz: 'kk' }[new URLSearchParams(location.search).get('lang')?.toLowerCase()];
   let savedLanguage = 'ru';
   try { savedLanguage = localStorage.getItem('open-consulting-language') || 'ru'; } catch (_) { /* Storage may be unavailable. */ }
-  applyLanguage(savedLanguage);
+  applyLanguage(urlLanguage || savedLanguage);
+
+  // Keep ?lang= in the address in step with the switcher, so a copied link opens in the same language.
+  document.addEventListener('site-language-change', ({ detail }) => {
+    const url = new URL(location.href);
+    if (detail.language === 'ru') url.searchParams.delete('lang'); else url.searchParams.set('lang', detail.language);
+    history.replaceState(history.state, '', url);
+  });
 })();

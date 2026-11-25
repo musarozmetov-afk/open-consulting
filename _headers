@@ -1,9 +1,11 @@
+/*
+  X-Content-Type-Options: nosniff
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
 /admin/*
   Cache-Control: no-store
-  X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: same-origin
 
 /api/admin/*
   Cache-Control: no-store
-  X-Content-Type-Options: nosniff

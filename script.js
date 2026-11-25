@@ -138,6 +138,16 @@ function updateCallbackFields() {
 callbackCheckbox.addEventListener('change', updateCallbackFields);
 updateCallbackFields();
 
+// Tidy Kazakhstan numbers to +7 (XXX) XXX-XX-XX when the visitor leaves the field.
+phoneInput.addEventListener('blur', () => {
+  let digits = phoneInput.value.replace(/\D/g, '');
+  if (digits.length === 10) digits = `7${digits}`;
+  if (digits.length === 11 && /^[78]/.test(digits)) {
+    digits = `7${digits.slice(1)}`;
+    phoneInput.value = `+7 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7, 9)}-${digits.slice(9)}`;
+  }
+});
+
 phoneInput.addEventListener('input', () => {
   phoneInput.setCustomValidity('');
   delete formStatus.dataset.sourceMessage;
