@@ -120,6 +120,10 @@ def hook_should_run():
         event = json.load(sys.stdin)
     except (json.JSONDecodeError, ValueError):
         return True
+    # A Bash command can change the watched files without naming them
+    # (scripts, globs, git checkout), so always check after Bash.
+    if event.get("tool_name") == "Bash":
+        return True
     tool_input = event.get("tool_input") or {}
     target = " ".join(str(tool_input.get(key, "")) for key in ("file_path", "command"))
     return any(name in target for name in WATCHED)
