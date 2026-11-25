@@ -257,6 +257,7 @@
     "Шымкент, ул. Жолдасбекова, 51, 1 этаж": { en: "Shymkent, 51 Zholdasbekov St., ground floor", kk: "Шымкент, Жолдасбеков к-сі, 51, 1-қабат" },
     "Открыть в 2ГИС": { en: "Open in 2GIS", kk: "2ГИС-те ашу" },
     "Карта 2ГИС: офис OPEN CONSULTING в Шымкенте": { en: "2GIS map: OPEN CONSULTING office in Shymkent", kk: "2ГИС картасы: OPEN CONSULTING-тің Шымкенттегі кеңсесі" },
+    "Написать нам": { en: "Message us", kk: "Бізге жазыңыз" },
     "Отправляем заявку…": { en: "Sending your inquiry…", kk: "Өтінім жіберілуде…" },
     "Спасибо! Заявка отправлена. Мы свяжемся с вами.": { en: "Thank you! Your inquiry has been sent. We will be in touch.", kk: "Рақмет! Өтінім жіберілді. Сізбен хабарласамыз." },
     "Форма пока не подключена. Добавьте endpoint Formspree в form-config.js.": { en: "The form is not connected yet. Add the Formspree endpoint in form-config.js.", kk: "Форма әлі қосылмаған. form-config.js файлына Formspree endpoint мекенжайын қосыңыз." },

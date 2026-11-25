@@ -82,6 +82,32 @@ if (heroVideo && videoToggle) {
   }).observe(heroVideo);
 }
 
+// Floating "message us" button: opens a small menu with WhatsApp, Telegram and Instagram.
+const contactFab = document.querySelector('.contact-fab');
+if (contactFab) {
+  const fabToggle = contactFab.querySelector('.fab-toggle');
+  const fabMenu = contactFab.querySelector('.fab-menu');
+  const setFabOpen = (open) => {
+    contactFab.classList.toggle('open', open);
+    fabToggle.setAttribute('aria-expanded', String(open));
+    fabMenu.hidden = !open;
+  };
+  fabToggle.addEventListener('click', () => {
+    const open = fabToggle.getAttribute('aria-expanded') !== 'true';
+    setFabOpen(open);
+    if (open) fabMenu.querySelector('a')?.focus({ preventScroll: true });
+  });
+  document.addEventListener('click', (event) => {
+    if (!contactFab.contains(event.target)) setFabOpen(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && fabToggle.getAttribute('aria-expanded') === 'true') {
+      setFabOpen(false);
+      fabToggle.focus();
+    }
+  });
+}
+
 // Cards in a group appear one after another; the delay is cleared afterwards so hover stays instant.
 document.querySelectorAll('.service-grid, .benefit-grid, .offer-grid, .steps, .case-list, .principles-row').forEach((group) => {
   [...group.children].filter((child) => child.classList.contains('reveal')).forEach((child, index) => {
