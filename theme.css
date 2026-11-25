@@ -437,8 +437,13 @@ h1 { max-width: 720px; margin: 26px 0 24px; color: #fff; font-size: clamp(46px, 
 .intro-rule { display: block; width: 140px; height: 1px; margin: 34px auto 24px; background: linear-gradient(90deg, transparent, var(--orange), transparent); transform: scaleX(0); animation: intro-rule 1s 1.5s cubic-bezier(.2, .7, .2, 1) both; }
 .intro-author { margin: 0; color: var(--on-dark-muted); font-size: 13px; letter-spacing: .28em; text-transform: uppercase; animation: intro-fade 1s 1.8s ease both; }
 .intro-author strong { color: #fff; font: italic 500 clamp(18px, 2vw, 22px)/1.4 var(--serif); letter-spacing: .02em; text-transform: none; }
-.intro-skip { position: absolute; bottom: 28px; left: 50%; padding: 8px 14px; border: 0; background: none; color: var(--on-dark-muted); cursor: pointer; font-size: 12px; letter-spacing: .14em; white-space: nowrap; transform: translateX(-50%); animation: intro-fade .8s 2.2s ease both; }
-.intro-skip:hover { color: #fff; }
+.intro-skip { position: relative; display: inline-flex; align-items: center; gap: 12px; margin-top: 40px; padding: 16px 30px; border: 0; border-radius: var(--radius); background: var(--orange-btn); color: #fff; cursor: pointer; font: 700 16px/1 var(--font); letter-spacing: .02em; box-shadow: 0 18px 40px -14px rgba(212, 42, 6, .8); animation: intro-fade .8s 2.1s ease both; transition: background .2s, transform .2s; }
+.intro-skip:hover { background: var(--orange-dark); transform: translateY(-2px); }
+.intro-skip span { display: inline-block; transition: transform .25s; }
+.intro-skip:hover span { transform: translateX(4px); }
+/* Gentle pulse so the button reads as the way in. */
+.intro-skip::before { content: ""; position: absolute; inset: 0; border: 2px solid var(--orange); border-radius: inherit; animation: intro-pulse 2.4s 2.9s ease-out infinite; opacity: 0; }
+@keyframes intro-pulse { 0% { opacity: .8; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.18, 1.45); } }
 /* Leaving: the screen lifts away like a curtain */
 .intro-leaving .intro-splash { animation: intro-curtain .95s cubic-bezier(.7, 0, .2, 1) both; }
 .intro-leaving .intro-inner { animation: intro-out .6s ease both; }
@@ -605,6 +610,7 @@ h1 { max-width: 720px; margin: 26px 0 24px; color: #fff; font-size: clamp(46px, 
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .js .reveal { opacity: 1; transform: none; }
   .fab-toggle::before { animation: none; opacity: 0; }
+  .intro-skip::before { animation: none; }
   .intro-splash *, .intro-leaving .intro-splash, .intro-leaving .intro-inner { animation-duration: .01ms !important; animation-delay: 0s !important; }
   .hero::after { animation: none; }
   .steps::before { transform: scaleX(1); }

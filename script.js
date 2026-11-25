@@ -17,10 +17,10 @@ if (introSplash && document.documentElement.classList.contains('intro-playing'))
       introSplash.remove();
     }, reduced ? 50 : 1000);
   };
-  const timer = setTimeout(endIntro, reduced ? 1500 : 3600);
-  const skip = () => { clearTimeout(timer); endIntro(); };
-  introSplash.addEventListener('click', skip);
-  document.addEventListener('keydown', skip, { once: true });
+  // The intro stays until the visitor presses the "continue" button (click, Enter or Space).
+  const introButton = introSplash.querySelector('.intro-skip');
+  introButton.addEventListener('click', endIntro);
+  setTimeout(() => introButton.focus({ preventScroll: true }), reduced ? 0 : 2200);
 } else if (introSplash) {
   introSplash.remove();
 }
