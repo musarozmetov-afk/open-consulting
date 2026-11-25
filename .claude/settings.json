@@ -1,12 +1,24 @@
 {
   "enabledPlugins": {
     "claude-mem@thedotmack": true,
-    "headroom@headroom-marketplace": true,
-    "headroom-skill@headroom-marketplace": true,
+    "headroom@headroom-marketplace": false,
+    "headroom-skill@headroom-marketplace": false,
     "claude-code-setup@claude-plugins-official": true,
     "task-observer@one-skill-to-rule-them-all": true
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$CLAUDE_PROJECT_DIR/scripts/guard-secrets.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit|Bash",

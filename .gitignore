@@ -1,0 +1,6 @@
+# Task-observer journal (local notes, not part of the site)
+skill-observations/
+
+# Local preview config and Python caches
+.claude/launch.json
+__pycache__/
