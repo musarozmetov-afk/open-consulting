@@ -51,6 +51,37 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
   });
 }, { threshold: 0.12 });
 
+// Hero video: a pause control, no autoplay for reduced-motion or data-saver visitors,
+// and no playback while it is off screen.
+const heroVideo = document.querySelector('.hero-video');
+const videoToggle = document.querySelector('.video-toggle');
+if (heroVideo && videoToggle) {
+  const setPaused = (paused) => {
+    videoToggle.setAttribute('aria-pressed', String(paused));
+    videoToggle.setAttribute('aria-label', localize(paused ? 'Воспроизвести видео' : 'Остановить видео'));
+  };
+  let pausedByVisitor = false;
+  const prefersStill = window.matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData;
+  if (prefersStill) {
+    heroVideo.removeAttribute('autoplay');
+    heroVideo.pause();
+    pausedByVisitor = true;
+  }
+  setPaused(heroVideo.paused || pausedByVisitor);
+  videoToggle.addEventListener('click', () => {
+    pausedByVisitor = !heroVideo.paused;
+    if (pausedByVisitor) heroVideo.pause(); else heroVideo.play().catch(() => {});
+    setPaused(pausedByVisitor);
+  });
+  heroVideo.addEventListener('play', () => setPaused(false));
+  heroVideo.addEventListener('pause', () => setPaused(true));
+  document.addEventListener('site-language-change', () => setPaused(heroVideo.paused));
+  new IntersectionObserver(([entry]) => {
+    if (pausedByVisitor) return;
+    if (entry.isIntersecting) heroVideo.play().catch(() => {}); else heroVideo.pause();
+  }).observe(heroVideo);
+}
+
 // Cards in a group appear one after another; the delay is cleared afterwards so hover stays instant.
 document.querySelectorAll('.service-grid, .benefit-grid, .offer-grid, .steps, .case-list, .principles-row').forEach((group) => {
   [...group.children].filter((child) => child.classList.contains('reveal')).forEach((child, index) => {
