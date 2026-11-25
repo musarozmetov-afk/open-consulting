@@ -68,21 +68,36 @@ document.querySelectorAll('[data-service]').forEach((link) => {
   });
 });
 
+// WhatsApp links open a chat with a ready greeting in the visitor's language.
+const WHATSAPP_GREETING = 'Здравствуйте! Хочу получить консультацию OPEN CONSULTING.';
+let whatsappNumber = '77753699415';
+
+function updateWhatsappLinks() {
+  const text = encodeURIComponent(localize(WHATSAPP_GREETING));
+  document.querySelectorAll('[data-whatsapp-link]').forEach((link) => {
+    link.href = `https://wa.me/${whatsappNumber}?text=${text}`;
+  });
+}
+
 function applyWhatsappNumber(value) {
-  const whatsappNumber = String(value || '').replace(/\D/g, '');
-  if (/^7\d{10}$/.test(whatsappNumber)) {
-    const formattedNumber = `+7 ${whatsappNumber.slice(1, 4)} ${whatsappNumber.slice(4, 7)} ${whatsappNumber.slice(7, 9)} ${whatsappNumber.slice(9)}`;
-    document.querySelectorAll('[data-whatsapp-link]').forEach((link) => {
-      link.href = `https://wa.me/${whatsappNumber}`;
-    });
-    document.querySelector('#contact-phone').textContent = formattedNumber;
+  const digits = String(value || '').replace(/\D/g, '');
+  if (!/^7\d{10}$/.test(digits)) return;
+  whatsappNumber = digits;
+  const phone = document.querySelector('#contact-phone');
+  if (phone?.firstChild) {
+    phone.firstChild.nodeValue = `+7 ${digits.slice(1, 4)} ${digits.slice(4, 7)} ${digits.slice(7, 9)} ${digits.slice(9)}`;
   }
+  updateWhatsappLinks();
 }
 
 applyWhatsappNumber(window.OPEN_CONSULTING_WHATSAPP);
+document.addEventListener('site-language-change', updateWhatsappLinks);
 
-fetch('/api/site-content')
-  .then((response) => response.ok ? response.json() : null)
+// The admin API exists only on Cloudflare Pages; static hosts (GitHub Pages) skip it.
+const hasSiteApi = !location.hostname.endsWith('github.io') && location.protocol !== 'file:';
+
+(hasSiteApi ? fetch('/api/site-content') : Promise.resolve(null))
+  .then((response) => response?.ok ? response.json() : null)
   .then((content) => {
     if (!content) return;
     if (typeof content.heroLead === 'string') {

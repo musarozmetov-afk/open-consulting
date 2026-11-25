@@ -238,6 +238,7 @@
     "СВЯЗАТЬСЯ С НАМИ ↗": { en: "CONTACT US ↗", kk: "БІЗБЕН БАЙЛАНЫСУ ↗" },
     "Написать в WhatsApp OPEN CONSULTING по номеру +7 775 369 94 15": { en: "Message OPEN CONSULTING on WhatsApp at +7 775 369 94 15", kk: "+7 775 369 94 15 нөмірі бойынша OPEN CONSULTING-ке WhatsApp арқылы жазу" },
     "Наводим порядок в цифрах, документах и процессах, чтобы вы могли сосредоточиться на росте.": { en: "We bring order to your numbers, documents and processes so you can focus on growth.", kk: "Сіз өсуге назар аудара алуыңыз үшін сандарды, құжаттар мен процестерді ретке келтіреміз." },
+    "Здравствуйте! Хочу получить консультацию OPEN CONSULTING.": { en: "Hello! I would like a consultation with OPEN CONSULTING.", kk: "Сәлеметсіз бе! OPEN CONSULTING-тен кеңес алғым келеді." },
     "Отправляем заявку…": { en: "Sending your inquiry…", kk: "Өтінім жіберілуде…" },
     "Спасибо! Заявка отправлена. Мы свяжемся с вами.": { en: "Thank you! Your inquiry has been sent. We will be in touch.", kk: "Рақмет! Өтінім жіберілді. Сізбен хабарласамыз." },
     "Форма пока не подключена. Добавьте endpoint Formspree в form-config.js.": { en: "The form is not connected yet. Add the Formspree endpoint in form-config.js.", kk: "Форма әлі қосылмаған. form-config.js файлына Formspree endpoint мекенжайын қосыңыз." },

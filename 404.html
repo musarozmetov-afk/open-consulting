@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Страница не найдена — OPEN CONSULTING</title>
+  <style>
+    :root { --ink: #20242B; --muted: #6A6F76; --orange: #E2620F; --orange-btn: #BF5009; }
+    * { box-sizing: border-box; }
+    body { display: grid; min-height: 100vh; margin: 0; padding: 24px 16px; place-items: center; background: #F5F6F7; color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    main { width: min(520px, 100%); padding: 36px 28px; border: 1px solid #E3E5E7; border-radius: 16px; background: #fff; text-align: center; }
+    .mark { font: 800 44px/1 system-ui, sans-serif; letter-spacing: -4px; }
+    .mark span { color: var(--orange); }
+    h1 { margin: 18px 0 8px; font-size: 26px; line-height: 1.25; }
+    p { margin: 0 0 6px; color: var(--muted); }
+    a.button { display: inline-block; margin-top: 22px; padding: 14px 22px; border-radius: 10px; background: var(--orange-btn); color: #fff; font-weight: 700; text-decoration: none; }
+    a.button:hover { background: #A64506; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">O<span>.</span></div>
+    <h1>Страница не найдена</h1>
+    <p>Такой страницы нет или она была перемещена.</p>
+    <p lang="en">Page not found.</p>
+    <p lang="kk">Бет табылмады.</p>
+    <a class="button" id="home" href="/">На главную · Home · Басты бет</a>
+  </main>
+  <script>
+    // GitHub Pages serves the site from /open-consulting/; Cloudflare Pages from the root.
+    if (location.hostname.endsWith('github.io')) document.getElementById('home').href = '/open-consulting/';
+  </script>
+</body>
+</html>

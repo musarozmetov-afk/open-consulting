@@ -86,6 +86,9 @@ def collect_sources():
     sources = [(text, f"index.html {where}") for text, where in parser.texts]
 
     script = (ROOT / "script.js").read_text(encoding="utf-8")
+    # Drop whole-line and trailing // comments first: an apostrophe in a comment
+    # ("visitor's") would otherwise pair with the next quote and hide real strings.
+    script = re.sub(r"(^|\s)//[^\n]*", r"\1", script)
     for literal in re.findall(r"'((?:[^'\\]|\\.)*)'", script):
         sources.append((literal, "script.js"))
 
