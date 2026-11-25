@@ -6,6 +6,20 @@
     "claude-code-setup@claude-plugins-official": true,
     "task-observer@one-skill-to-rule-them-all": true
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -I \"$CLAUDE_PROJECT_DIR/scripts/check-i18n.py\" --hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
   "extraKnownMarketplaces": {
     "thedotmack": {
       "source": {
