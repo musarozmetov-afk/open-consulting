@@ -1,5 +1,30 @@
 document.documentElement.classList.add('js');
 
+// Intro screen: shown once per visit (flag set in <head>), ends by itself or on click / key press.
+const introSplash = document.querySelector('#intro-splash');
+if (introSplash && document.documentElement.classList.contains('intro-playing')) {
+  const root = document.documentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let introDone = false;
+  const endIntro = () => {
+    if (introDone) return;
+    introDone = true;
+    try { sessionStorage.setItem('oc-intro-seen', '1'); } catch (_) { /* Storage may be unavailable. */ }
+    root.classList.add('intro-leaving');
+    root.classList.remove('intro-playing'); // lets the first screen start its own entrance
+    setTimeout(() => {
+      root.classList.remove('intro-leaving');
+      introSplash.remove();
+    }, reduced ? 50 : 1000);
+  };
+  const timer = setTimeout(endIntro, reduced ? 1500 : 3600);
+  const skip = () => { clearTimeout(timer); endIntro(); };
+  introSplash.addEventListener('click', skip);
+  document.addEventListener('keydown', skip, { once: true });
+} else if (introSplash) {
+  introSplash.remove();
+}
+
 // Lift the header with a soft shadow once the page is scrolled.
 const header = document.querySelector('.header');
 const updateHeaderShadow = () => header.classList.toggle('scrolled', window.scrollY > 8);
