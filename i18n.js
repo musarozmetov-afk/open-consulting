@@ -236,7 +236,7 @@
     "НАВЕРХ": { en: "BACK TO TOP", kk: "ЖОҒАРЫҒА" },
     "КАЗАХСТАН · БИЗНЕС-СОПРОВОЖДЕНИЕ": { en: "KAZAKHSTAN · BUSINESS SUPPORT", kk: "ҚАЗАҚСТАН · БИЗНЕСТІ СҮЙЕМЕЛДЕУ" },
     "СВЯЗАТЬСЯ С НАМИ ↗": { en: "CONTACT US ↗", kk: "БІЗБЕН БАЙЛАНЫСУ ↗" },
-    "Написать в WhatsApp OPEN CONSULTING по номеру +7 775 369 94 15": { en: "Message OPEN CONSULTING on WhatsApp at +7 775 369 94 15", kk: "+7 775 369 94 15 нөмірі бойынша OPEN CONSULTING-ке WhatsApp арқылы жазу" },
+    "Написать в WhatsApp OPEN CONSULTING по номеру +7 707 588 55 77": { en: "Message OPEN CONSULTING on WhatsApp at +7 707 588 55 77", kk: "+7 707 588 55 77 нөмірі бойынша OPEN CONSULTING-ке WhatsApp арқылы жазу" },
     "Наводим порядок в цифрах, документах и процессах, чтобы вы могли сосредоточиться на росте.": { en: "We bring order to your numbers, documents and processes so you can focus on growth.", kk: "Сіз өсуге назар аудара алуыңыз үшін сандарды, құжаттар мен процестерді ретке келтіреміз." },
     "Здравствуйте! Хочу получить консультацию OPEN CONSULTING.": { en: "Hello! I would like a consultation with OPEN CONSULTING.", kk: "Сәлеметсіз бе! OPEN CONSULTING-тен кеңес алғым келеді." },
     "Отправляя форму, вы соглашаетесь на": { en: "By sending the form, you agree to the", kk: "Форманы жібере отырып, сіз" },

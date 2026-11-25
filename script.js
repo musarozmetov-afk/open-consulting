@@ -126,7 +126,7 @@ document.querySelectorAll('[data-service]').forEach((link) => {
 
 // WhatsApp links open a chat with a ready greeting in the visitor's language.
 const WHATSAPP_GREETING = 'Здравствуйте! Хочу получить консультацию OPEN CONSULTING.';
-let whatsappNumber = '77753699415';
+let whatsappNumber = '77075885577';
 
 function updateWhatsappLinks() {
   const text = encodeURIComponent(localize(WHATSAPP_GREETING));

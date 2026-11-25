@@ -12,7 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 INDEX = Path(__file__).resolve().parent.parent / "index.html"
-ASSETS = ("theme.css", "i18n.js", "script.js")
+ASSETS = ("theme.css", "i18n.js", "script.js", "contact-config.js", "form-config.js")
 
 
 def main():

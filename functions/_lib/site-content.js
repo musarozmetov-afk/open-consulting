@@ -1,6 +1,6 @@
 export const DEFAULT_SITE_CONTENT = Object.freeze({
   heroLead: 'Наводим порядок в цифрах, документах и процессах, чтобы вы могли сосредоточиться на росте.',
-  whatsappNumber: '77753699415'
+  whatsappNumber: '77075885577'
 });
 
 function getRestUrl(env) {

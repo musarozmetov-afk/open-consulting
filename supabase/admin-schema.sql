@@ -12,6 +12,6 @@ grant select, insert, update, delete on table public.site_content to service_rol
 insert into public.site_content (id, content)
 values (
   'main',
-  '{"heroLead":"Наводим порядок в цифрах, документах и процессах, чтобы вы могли сосредоточиться на росте.","whatsappNumber":"77753699415"}'::jsonb
+  '{"heroLead":"Наводим порядок в цифрах, документах и процессах, чтобы вы могли сосредоточиться на росте.","whatsappNumber":"77075885577"}'::jsonb
 )
 on conflict (id) do nothing;

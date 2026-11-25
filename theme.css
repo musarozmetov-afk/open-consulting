@@ -285,6 +285,10 @@ h1 { max-width: 720px; margin: 26px 0 24px; color: #fff; font-size: clamp(46px, 
 .rating-badge strong { color: #fff; font-size: 15px; }
 .hero-rating { margin-top: 22px; padding: 8px 14px 8px 10px; border: 1px solid var(--line-dark); border-radius: 999px; background: rgba(255, 255, 255, .04); }
 .js .hero-rating { animation: rise .95s 1s cubic-bezier(.2, .7, .2, 1) both; }
+.contact-socials { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 18px; }
+.contact-socials a { color: #fff; font-size: 14px; font-weight: 700; transition: color .2s; }
+.contact-socials a:hover { color: var(--orange-light); }
+.contact-socials span { color: var(--orange-light); }
 /* Office address */
 .office-card { display: flex; gap: 14px; max-width: 520px; margin-top: 26px; padding: 18px 20px; border: 1px solid var(--line-dark); border-radius: var(--radius); background: var(--ink-2); }
 .office-icon { display: grid; flex: 0 0 auto; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: rgba(255, 53, 13, .16); color: var(--orange-light); }
