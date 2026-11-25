@@ -258,8 +258,6 @@
     "Открыть в 2ГИС": { en: "Open in 2GIS", kk: "2ГИС-те ашу" },
     "Карта 2ГИС: офис OPEN CONSULTING в Шымкенте": { en: "2GIS map: OPEN CONSULTING office in Shymkent", kk: "2ГИС картасы: OPEN CONSULTING-тің Шымкенттегі кеңсесі" },
     "Написать нам": { en: "Message us", kk: "Бізге жазыңыз" },
-    "Этот сайт создан": { en: "This website is made", kk: "Бұл сайт" },
-    "только для профессионалов": { en: "for professionals only", kk: "тек кәсіпқойларға арналған" },
     "Автор:": { en: "Author:", kk: "Авторы:" },
     "Абдумажитов Мадияр": { en: "Madiyar Abdumazhitov", kk: "Абдумажитов Мадияр" },
     "Нажмите, чтобы продолжить": { en: "Click to continue", kk: "Жалғастыру үшін басыңыз" },
