@@ -51,7 +51,26 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
   });
 }, { threshold: 0.12 });
 
+// Cards in a group appear one after another; the delay is cleared afterwards so hover stays instant.
+document.querySelectorAll('.service-grid, .benefit-grid, .offer-grid, .steps, .case-list, .principles-row').forEach((group) => {
+  [...group.children].filter((child) => child.classList.contains('reveal')).forEach((child, index) => {
+    child.style.setProperty('--i', index);
+    child.addEventListener('transitionend', () => child.style.removeProperty('--i'), { once: true });
+  });
+});
+
 document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+// Draw the accent line across the process steps once they are on screen.
+const steps = document.querySelector('.steps');
+if (steps) {
+  new IntersectionObserver((entries, observer) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      steps.classList.add('drawn');
+      observer.disconnect();
+    }
+  }, { threshold: 0.25 }).observe(steps);
+}
 
 // Highlight the menu item of the section currently on screen.
 const navLinks = [...navigation.querySelectorAll('a[href^="#"]:not(.nav-contact-link)')];
