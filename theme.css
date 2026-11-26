@@ -100,11 +100,19 @@ h1 em, .image-band-title span { background: linear-gradient(100deg, #FF350D 0%, 
 .js .hero-slide.is-active { animation: ken-burns 9s ease-out both; }
 @keyframes ken-burns { from { transform: scale(1.12); } to { transform: scale(1.02); } }
 .hero-slides::after { content: ""; position: absolute; inset: 0; background:
-  linear-gradient(90deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .25) 45%, rgba(255, 255, 255, 0) 70%),
-  linear-gradient(180deg, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, .6) 100%); }
-/* The copy sits on a frosted-glass panel so the photos can stay clearly visible. */
-.hero-copy { position: relative; padding: 38px 40px 34px; border: 1px solid rgba(255, 255, 255, .7); border-radius: 24px; background: rgba(255, 255, 255, .78); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); box-shadow: 0 30px 70px -40px rgba(28, 29, 34, .45); }
-.hero-copy h1 { margin-top: 20px; }
+  linear-gradient(90deg, rgba(14, 15, 18, .62) 0%, rgba(14, 15, 18, .42) 50%, rgba(14, 15, 18, .12) 100%),
+  linear-gradient(180deg, rgba(14, 15, 18, .15) 0%, rgba(14, 15, 18, 0) 40%, rgba(14, 15, 18, .25) 100%); }
+/* Text sits straight on the photos: white type with a soft shadow over a light dark tint. */
+.hero-copy { position: relative; }
+.hero h1, .hero .hero-lead { text-shadow: 0 2px 24px rgba(0, 0, 0, .35); }
+.hero h1 { color: #fff; }
+.hero h1 em { background: linear-gradient(100deg, #FF6A3D 0%, #FFA04D 50%, #FF6A3D 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; filter: drop-shadow(0 2px 14px rgba(0, 0, 0, .35)); }
+.hero .hero-lead { color: rgba(255, 255, 255, .92); }
+.hero .eyebrow { color: rgba(255, 255, 255, .85); }
+.hero .button-outline { border-color: rgba(255, 255, 255, .55); background: rgba(255, 255, 255, .08); color: #fff; backdrop-filter: blur(6px); }
+.hero .button-outline:hover { border-color: #fff; background: rgba(255, 255, 255, .18); color: #fff; }
+.hero .hero-rating { border-color: rgba(255, 255, 255, .35); background: rgba(255, 255, 255, .12); color: rgba(255, 255, 255, .9); backdrop-filter: blur(6px); box-shadow: none; }
+.hero .hero-rating strong { color: #fff; }
 /* Abstract background: three soft shapes that start drifting after the text has arrived. */
 .hero-shapes { position: absolute; z-index: -1; inset: 0; overflow: hidden; pointer-events: none; }
 .shape { position: absolute; border-radius: 50%; filter: blur(2px); }
@@ -122,16 +130,15 @@ h1 em, .image-band-title span { background: linear-gradient(100deg, #FF350D 0%, 
   background-image: linear-gradient(rgba(28, 29, 34, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(28, 29, 34, .045) 1px, transparent 1px);
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse at 70% 30%, #000 0%, transparent 70%); }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 760px); align-items: center; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1000px); align-items: center; }
 .eyebrow, .section-label { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
-.hero .eyebrow { color: var(--muted); }
 .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 5px rgba(255, 53, 13, .18); }
 .eyebrow-divider { opacity: .5; }
 .label-line { width: 40px; height: 1px; background: currentColor; opacity: .45; }
-h1 { max-width: 760px; margin: 26px 0 26px; color: var(--ink); font-size: clamp(44px, 5.2vw, 78px); line-height: 1.05; }
+h1 { max-width: 1000px; margin: 26px 0 26px; color: var(--ink); font-size: clamp(44px, 5.4vw, 84px); line-height: 1.05; }
 .h1-line { display: block; overflow: hidden; padding-bottom: .06em; }
 .h1-line > * { display: inline-block; }
-.hero-lead { max-width: 600px; margin-bottom: 0; color: var(--text); font-size: clamp(17px, 1.5vw, 20px); font-weight: 500; line-height: 1.7; }
+.hero-lead { max-width: 780px; margin-bottom: 0; color: var(--text); font-size: clamp(17px, 1.5vw, 20px); font-weight: 500; line-height: 1.7; }
 .hero-detail { max-width: 540px; margin-bottom: 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 38px; }
 .hero-visual { position: relative; padding: 0 0 30px 30px; }
@@ -702,8 +709,7 @@ h1 { max-width: 760px; margin: 26px 0 26px; color: var(--ink); font-size: clamp(
   .svc-hero-copy { padding: 24px 0 28px; }
   .svc-others-head { align-items: flex-start; flex-direction: column; }
   .hero { min-height: auto; padding: 44px 0 40px; }
-  .hero-slides::after { background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, .35) 100%); }
-  .hero-copy { padding: 26px 20px 24px; border-radius: 20px; }
+  .hero-slides::after { background: linear-gradient(180deg, rgba(14, 15, 18, .5) 0%, rgba(14, 15, 18, .62) 100%); }
   .hero > .container { width: calc(100% - 32px); }
   .carousel-track { gap: 14px; padding-inline: 16px; }
   .carousel-viewport { scroll-padding-inline: 16px; }
