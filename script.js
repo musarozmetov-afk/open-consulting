@@ -107,6 +107,93 @@ if (heroVideo && videoToggle) {
   }).observe(heroVideo);
 }
 
+// ---------- Pointer & scroll effects ----------
+const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+// Scroll progress bar along the top edge.
+const progressBar = document.querySelector('.scroll-progress');
+if (progressBar) {
+  let progressQueued = false;
+  const updateProgress = () => {
+    progressQueued = false;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.setProperty('--progress', max > 0 ? Math.min(1, window.scrollY / max) : 0);
+  };
+  window.addEventListener('scroll', () => {
+    if (!progressQueued) { progressQueued = true; requestAnimationFrame(updateProgress); }
+  }, { passive: true });
+  updateProgress();
+}
+
+if (finePointer && motionOK) {
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  const heroSection = document.querySelector('.hero');
+  const interactive = 'a, button, summary, select, input, textarea, label, [role="button"]';
+  if (dot && ring) {
+    document.documentElement.classList.add('has-cursor');
+    let x = -100, y = -100, rx = -100, ry = -100;
+    const follow = () => {
+      rx += (x - rx) * 0.18;
+      ry += (y - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px)`;
+      requestAnimationFrame(follow);
+    };
+    requestAnimationFrame(follow);
+    window.addEventListener('pointermove', (event) => {
+      if (event.pointerType !== 'mouse') return;
+      x = event.clientX; y = event.clientY;
+      dot.style.transform = `translate(${x}px, ${y}px)`;
+      dot.classList.remove('is-hidden'); ring.classList.remove('is-hidden');
+      ring.classList.toggle('is-link', Boolean(event.target.closest?.(interactive)));
+      if (heroSection && heroSection.contains(event.target)) {
+        const box = heroSection.getBoundingClientRect();
+        heroSection.style.setProperty('--mx', `${event.clientX - box.left}px`);
+        heroSection.style.setProperty('--my', `${event.clientY - box.top}px`);
+      }
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => { dot.classList.add('is-hidden'); ring.classList.add('is-hidden'); });
+    window.addEventListener('pointerdown', (event) => {
+      ring.classList.add('is-down');
+      const burst = document.createElement('span');
+      burst.className = 'cursor-burst';
+      burst.style.left = `${event.clientX}px`;
+      burst.style.top = `${event.clientY}px`;
+      document.body.appendChild(burst);
+      burst.addEventListener('animationend', () => burst.remove(), { once: true });
+    });
+    window.addEventListener('pointerup', () => ring.classList.remove('is-down'));
+  }
+
+  // Cards lean toward the pointer (max ~5 degrees) and lift slightly.
+  document.querySelectorAll('.service-card, .offer-card, .benefit-card, .step').forEach((card) => {
+    card.classList.add('tilt');
+    card.addEventListener('pointermove', (event) => {
+      const box = card.getBoundingClientRect();
+      const px = (event.clientX - box.left) / box.width - 0.5;
+      const py = (event.clientY - box.top) / box.height - 0.5;
+      card.classList.add('is-tilting');
+      card.style.transform = `perspective(900px) translateY(-6px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 5).toFixed(2)}deg)`;
+    });
+    card.addEventListener('pointerleave', () => {
+      card.classList.remove('is-tilting');
+      card.style.transform = '';
+    });
+  });
+
+  // Main buttons are gently "magnetic".
+  document.querySelectorAll('.button-primary, .nav-cta, .fab-toggle').forEach((button) => {
+    button.addEventListener('pointermove', (event) => {
+      const box = button.getBoundingClientRect();
+      const dx = event.clientX - (box.left + box.width / 2);
+      const dy = event.clientY - (box.top + box.height / 2);
+      button.style.translate = `${(dx * 0.15).toFixed(1)}px ${(dy * 0.25).toFixed(1)}px`;
+    });
+    button.addEventListener('pointerleave', () => { button.style.translate = ''; });
+  });
+}
+
 // Floating "message us" button: opens a small menu with WhatsApp, Telegram and Instagram.
 const contactFab = document.querySelector('.contact-fab');
 if (contactFab) {
