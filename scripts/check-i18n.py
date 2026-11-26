@@ -24,7 +24,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-WATCHED = ("index.html", "i18n.js", "script.js", "site-content.js")
+WATCHED = ("index.html", "i18n.js", "i18n-services.js", "script.js", "site-content.js", "services", "build-service-pages.py")
 ATTRIBUTES = {"aria-label", "placeholder", "alt", "content", "value", "title"}
 CYRILLIC = re.compile(r"[А-Яа-яЁё]")
 JS_STRING = r'"((?:[^"\\]|\\.)*)"'
@@ -34,7 +34,11 @@ LANG_VALUE = re.compile(r"\b(en|kk)\s*:\s*" + JS_STRING)
 
 def load_dictionary():
     entries = {}
-    for line in (ROOT / "i18n.js").read_text(encoding="utf-8").splitlines():
+    lines = (ROOT / "i18n.js").read_text(encoding="utf-8").splitlines()
+    extra = ROOT / "i18n-services.js"  # service-page strings, merged by i18n.js at runtime
+    if extra.exists():
+        lines += extra.read_text(encoding="utf-8").splitlines()
+    for line in lines:
         match = ENTRY.match(line)
         if not match:
             continue
@@ -80,10 +84,13 @@ class PageTexts(HTMLParser):
 
 
 def collect_sources():
-    parser = PageTexts()
-    html = (ROOT / "index.html").read_text(encoding="utf-8")
-    parser.feed(html)
-    sources = [(text, f"index.html {where}") for text, where in parser.texts]
+    sources = []
+    pages = [ROOT / "index.html"] + sorted((ROOT / "services").glob("*.html"))
+    for page in pages:
+        parser = PageTexts()
+        parser.feed(page.read_text(encoding="utf-8"))
+        name = page.relative_to(ROOT).as_posix()
+        sources += [(text, f"{name} {where}") for text, where in parser.texts]
 
     script = (ROOT / "script.js").read_text(encoding="utf-8")
     # Drop whole-line and trailing // comments first: an apostrophe in a comment

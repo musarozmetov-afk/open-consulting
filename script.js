@@ -194,6 +194,130 @@ if (finePointer && motionOK) {
   });
 }
 
+// ---------- Service carousel ----------
+// Native horizontal scrolling (so touch swipe, trackpads and keyboards just work) plus:
+// cloned sets on both sides for a seamless loop, autoplay that pauses on hover/focus/touch,
+// prev/next buttons, dots with a counter, arrow keys and mouse dragging.
+function initCarousel(root) {
+  const viewport = root.querySelector('.carousel-viewport');
+  const track = root.querySelector('.carousel-track');
+  const originals = [...track.children];
+  const count = originals.length;
+  const dots = [...root.querySelectorAll('.carousel-dot')];
+  const counter = root.querySelector('.carousel-count strong');
+  if (!viewport || count < 2) return;
+
+  // Two cloned sets before and after the real cards; clones are hidden from assistive tech and the tab order.
+  const SETS_EACH_SIDE = 2;
+  const makeClones = () => originals.map((card) => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.setAttribute('tabindex', '-1');
+    clone.classList.add('is-clone');
+    return clone;
+  });
+  for (let k = 0; k < SETS_EACH_SIDE; k += 1) {
+    track.prepend(...makeClones());
+    track.append(...makeClones());
+  }
+
+  const gap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+  const step = () => originals[0].getBoundingClientRect().width + gap();
+  const setWidth = () => step() * count;
+  const homeStart = () => originals[0].offsetLeft - track.firstElementChild.offsetLeft;
+
+  const jumpTo = (left) => {
+    viewport.style.scrollSnapType = 'none';
+    viewport.scrollLeft = left;
+    requestAnimationFrame(() => { viewport.style.scrollSnapType = ''; });
+  };
+  // Keep the visible position inside the real set so the loop never reaches an edge.
+  const normalise = () => {
+    const width = setWidth();
+    const offset = viewport.scrollLeft - homeStart();
+    if (offset < -width / 2) jumpTo(viewport.scrollLeft + width);
+    else if (offset > width * 1.5) jumpTo(viewport.scrollLeft - width);
+  };
+  const currentIndex = () => {
+    const offset = viewport.scrollLeft - homeStart();
+    return ((Math.round(offset / step()) % count) + count) % count;
+  };
+  const updateIndicator = () => {
+    const index = currentIndex();
+    dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === index)));
+    if (counter) counter.textContent = String(index + 1).padStart(2, '0');
+  };
+
+  const smooth = motionOK ? 'smooth' : 'auto';
+  const go = (direction) => viewport.scrollBy({ left: direction * step(), behavior: smooth });
+  const goToIndex = (index) => {
+    const delta = index - currentIndex();
+    viewport.scrollBy({ left: delta * step(), behavior: smooth });
+  };
+
+  // Start on the first real card.
+  jumpTo(homeStart());
+  updateIndicator();
+  window.addEventListener('resize', () => { jumpTo(homeStart() + currentIndex() * step()); });
+
+  let settleTimer;
+  viewport.addEventListener('scroll', () => {
+    updateIndicator();
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(normalise, 140);
+  }, { passive: true });
+
+  root.querySelectorAll('.carousel-btn').forEach((button) => {
+    button.addEventListener('click', () => { go(Number(button.dataset.dir)); pauseFor(6000); });
+  });
+  dots.forEach((dot, i) => dot.addEventListener('click', () => { goToIndex(i); pauseFor(6000); }));
+  viewport.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { event.preventDefault(); go(1); pauseFor(6000); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); go(-1); pauseFor(6000); }
+  });
+
+  // Mouse drag (touch uses native swipe).
+  let drag = null;
+  viewport.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'mouse' || event.button !== 0) return;
+    drag = { x: event.clientX, left: viewport.scrollLeft, moved: false };
+  });
+  window.addEventListener('pointermove', (event) => {
+    if (!drag) return;
+    const dx = event.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 6) { drag.moved = true; viewport.classList.add('is-dragging'); }
+    if (drag.moved) viewport.scrollLeft = drag.left - dx;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!drag) return;
+    const moved = drag.moved;
+    drag = null;
+    viewport.classList.remove('is-dragging');
+    if (moved) {
+      // Let snapping settle, and swallow the click that ends a drag.
+      viewport.addEventListener('click', (event) => event.preventDefault(), { capture: true, once: true });
+      pauseFor(6000);
+    }
+  });
+
+  // Autoplay: one card every 4 s; paused on hover, focus, touch or a hidden tab; off for reduced motion.
+  let pausedUntil = 0;
+  let hovering = false;
+  const pauseFor = (ms) => { pausedUntil = Date.now() + ms; };
+  root.addEventListener('pointerenter', () => { hovering = true; });
+  root.addEventListener('pointerleave', () => { hovering = false; });
+  viewport.addEventListener('touchstart', () => pauseFor(8000), { passive: true });
+  if (motionOK) {
+    setInterval(() => {
+      if (hovering || document.hidden || Date.now() < pausedUntil || root.contains(document.activeElement)) return;
+      const box = root.getBoundingClientRect();
+      if (box.bottom < 0 || box.top > window.innerHeight) return;
+      go(1);
+    }, 4000);
+  }
+}
+document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+
 // Floating "message us" button: opens a small menu with WhatsApp, Telegram and Instagram.
 const contactFab = document.querySelector('.contact-fab');
 if (contactFab) {
@@ -253,7 +377,8 @@ navLinks.forEach((link) => {
   const section = document.querySelector(link.getAttribute('href'));
   if (section) sectionObserver.observe(section);
 });
-document.querySelector('#year').textContent = new Date().getFullYear();
+const yearNode = document.querySelector('#year');
+if (yearNode) yearNode.textContent = new Date().getFullYear();
 
 const serviceSelect = document.querySelector('#contact-form select[name="service"]');
 document.querySelectorAll('[data-service]').forEach((link) => {
@@ -261,6 +386,11 @@ document.querySelectorAll('[data-service]').forEach((link) => {
     if (serviceSelect) serviceSelect.value = link.dataset.service;
   });
 });
+// Service pages link to the form as index.html?service=<slug>#contact: pre-select that service.
+const requestedService = new URLSearchParams(location.search).get('service');
+if (serviceSelect && requestedService && [...serviceSelect.options].some((option) => option.value === requestedService)) {
+  serviceSelect.value = requestedService;
+}
 
 // WhatsApp links open a chat with a ready greeting in the visitor's language.
 const WHATSAPP_GREETING = 'Здравствуйте! Хочу получить консультацию OPEN CONSULTING.';
@@ -294,8 +424,8 @@ const hasSiteApi = !location.hostname.endsWith('github.io') && location.protocol
   .then((response) => response?.ok ? response.json() : null)
   .then((content) => {
     if (!content) return;
-    if (typeof content.heroLead === 'string') {
-      const heroLead = document.querySelector('.hero-lead');
+    const heroLead = document.querySelector('.hero-lead');
+    if (heroLead && typeof content.heroLead === 'string') {
       const textNode = heroLead.firstChild;
       if (window.siteI18n && textNode?.nodeType === Node.TEXT_NODE) {
         window.siteI18n.refreshNode(textNode, content.heroLead);
@@ -309,6 +439,9 @@ const hasSiteApi = !location.hostname.endsWith('github.io') && location.protocol
   .catch(() => {});
 
 const form = document.querySelector('#contact-form');
+if (form) initContactForm(form);
+
+function initContactForm(form) {
 const phoneInput = form.elements.phone;
 const formStatus = form.querySelector('.form-status');
 const callbackCheckbox = form.elements.callback_request;
@@ -389,3 +522,4 @@ form.addEventListener('submit', async (event) => {
     submitButton.disabled = false;
   }
 });
+}

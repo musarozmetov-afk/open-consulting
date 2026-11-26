@@ -261,6 +261,27 @@
     "Автор:": { en: "Author:", kk: "Авторы:" },
     "Абдумажитов Мадияр": { en: "Madiyar Abdumazhitov", kk: "Абдумажитов Мадияр" },
     "Нажмите, чтобы продолжить": { en: "Click to continue", kk: "Жалғастыру үшін басыңыз" },
+    "НАПРАВЛЕНИЯ": { en: "SERVICES", kk: "ҚЫЗМЕТ БАҒЫТТАРЫ" },
+    "ПРЕИМУЩЕСТВА": { en: "WHY CLIENTS CHOOSE US", kk: "АРТЫҚШЫЛЫҚТАРЫМЫЗ" },
+    "ФОРМАТЫ СОТРУДНИЧЕСТВА": { en: "WAYS TO WORK TOGETHER", kk: "ЫНТЫМАҚТАСТЫҚ ТҮРЛЕРІ" },
+    "СТАРТ": { en: "FIRST STEP", kk: "БАСТАУ" },
+    "ПОДДЕРЖКА": { en: "ONGOING SUPPORT", kk: "ТҰРАҚТЫ ҚОЛДАУ" },
+    "ИНДИВИДУАЛЬНО": { en: "TAILORED", kk: "ЖЕКЕ ШЕШІМ" },
+    "КОМБИНАЦИЯ": { en: "COMBINED SERVICES", kk: "БІРІКТІРІЛГЕН ҚЫЗМЕТТЕР" },
+    "ФОКУС": { en: "FOCUSED ADVICE", kk: "НАҚТЫ МӘСЕЛЕ" },
+    "ПРИОРИТЕТЫ": { en: "PRIORITIES", kk: "БАСЫМДЫҚТАР" },
+    "ЭТАПЫ РАБОТЫ": { en: "HOW WE WORK", kk: "ЖҰМЫС КЕЗЕҢДЕРІ" },
+    "ПРИМЕРЫ ЗАПРОСОВ": { en: "EXAMPLE NEEDS", kk: "СҰРАНЫС МЫСАЛДАРЫ" },
+    "КОНТАКТЫ": { en: "CONTACT", kk: "БАЙЛАНЫС" },
+    "Помогаем бизнесу расти.": { en: "We help businesses grow.", kk: "Бизнестің өсуіне көмектесеміз." },
+    "Создаём решения для будущего.": { en: "We build solutions for the future.", kk: "Болашаққа арналған шешімдер жасаймыз." },
+    "Open Consulting — профессиональные консалтинговые решения для компаний, которые стремятся развиваться, оптимизировать процессы и достигать новых результатов.": { en: "Open Consulting provides professional consulting for companies that want to grow, streamline their processes and reach new results.", kk: "Open Consulting — дамуға, процестерді оңтайландыруға және жаңа нәтижелерге жетуге ұмтылатын компанияларға арналған кәсіби консалтингтік шешімдер." },
+    "Помогаем находить эффективные решения для развития и управления вашим бизнесом.": { en: "We help you find effective solutions for growing and managing your business.", kk: "Бизнесіңізді дамыту мен басқарудың тиімді шешімдерін табуға көмектесеміз." },
+    "Консультируем по налоговым вопросам и помогаем разобраться в налоговых обязательствах компании.": { en: "We advise on tax matters and help you understand your company's tax obligations.", kk: "Салық мәселелері бойынша кеңес береміз және компанияның салықтық міндеттемелерін түсінуге көмектесеміз." },
+    "Бизнес-консалтинг": { en: "Business consulting", kk: "Бизнес-консалтинг" },
+    "Помогаем компаниям находить точки роста, улучшать процессы и принимать эффективные управленческие решения.": { en: "We help companies find growth points, improve processes and make sound management decisions.", kk: "Компанияларға өсу нүктелерін табуға, процестерді жақсартуға және тиімді басқару шешімдерін қабылдауға көмектесеміз." },
+    "Предыдущая услуга": { en: "Previous service", kk: "Алдыңғы қызмет" },
+    "Следующая услуга": { en: "Next service", kk: "Келесі қызмет" },
     "Отправляем заявку…": { en: "Sending your inquiry…", kk: "Өтінім жіберілуде…" },
     "Спасибо! Заявка отправлена. Мы свяжемся с вами.": { en: "Thank you! Your inquiry has been sent. We will be in touch.", kk: "Рақмет! Өтінім жіберілді. Сізбен хабарласамыз." },
     "Форма пока не подключена. Добавьте endpoint Formspree в form-config.js.": { en: "The form is not connected yet. Add the Formspree endpoint in form-config.js.", kk: "Форма әлі қосылмаған. form-config.js файлына Formspree endpoint мекенжайын қосыңыз." },
@@ -268,6 +289,10 @@
     "Сервис не принял заявку. Проверьте форму и попробуйте ещё раз.": { en: "The service could not accept your inquiry. Check the form and try again.", kk: "Қызмет өтінімді қабылдамады. Форманы тексеріп, қайта көріңіз." },
     "Не удалось отправить заявку. Проверьте подключение к интернету и повторите попытку.": { en: "We could not send your inquiry. Check your internet connection and try again.", kk: "Өтінімді жіберу мүмкін болмады. Интернет байланысын тексеріп, қайта көріңіз." }
   };
+
+  // Service pages add their own strings through window.OC_EXTRA_TRANSLATIONS.
+  Object.assign(translations, window.OC_EXTRA_TRANSLATIONS || {});
+  const sourceTitle = document.title;
 
   const sourceTextNodes = [];
   const sourceAttributes = [];
@@ -303,7 +328,7 @@
     if (!['ru', 'en', 'kk'].includes(language)) language = 'ru';
     currentLanguage = language;
     document.documentElement.lang = language;
-    document.title = translated('OPEN CONSULTING — решения для бизнеса в Казахстане', language);
+    document.title = translated(sourceTitle, language);
     sourceTextNodes.forEach((binding) => { binding.node.nodeValue = replaceText(sourceFor(binding, language), language, binding.node); });
     sourceAttributes.forEach(({ element, attribute, source }) => {
       element.setAttribute(attribute, translated(source, language));

@@ -22,7 +22,10 @@ Only when `theme.css`, `i18n.js` or `script.js` changed since `origin/main` (`gi
 
 ```bash
 python scripts/bump-version.py
+python scripts/build-service-pages.py   # service pages reuse the new versions
 ```
+
+Always rebuild the service pages after editing their text in `scripts/build-service-pages.py` (never edit `services/*.html` or `i18n-services.js` by hand — they are generated).
 
 ## 3. Review and commit
 
