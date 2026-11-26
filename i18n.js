@@ -282,6 +282,7 @@
     "Помогаем компаниям находить точки роста, улучшать процессы и принимать эффективные управленческие решения.": { en: "We help companies find growth points, improve processes and make sound management decisions.", kk: "Компанияларға өсу нүктелерін табуға, процестерді жақсартуға және тиімді басқару шешімдерін қабылдауға көмектесеміз." },
     "Предыдущая услуга": { en: "Previous service", kk: "Алдыңғы қызмет" },
     "Следующая услуга": { en: "Next service", kk: "Келесі қызмет" },
+    "Прокрутить к услугам": { en: "Scroll to services", kk: "Қызметтерге өту" },
     "Отправляем заявку…": { en: "Sending your inquiry…", kk: "Өтінім жіберілуде…" },
     "Спасибо! Заявка отправлена. Мы свяжемся с вами.": { en: "Thank you! Your inquiry has been sent. We will be in touch.", kk: "Рақмет! Өтінім жіберілді. Сізбен хабарласамыз." },
     "Форма пока не подключена. Добавьте endpoint Formspree в form-config.js.": { en: "The form is not connected yet. Add the Formspree endpoint in form-config.js.", kk: "Форма әлі қосылмаған. form-config.js файлына Formspree endpoint мекенжайын қосыңыз." },

@@ -208,6 +208,19 @@ if (heroSlides.length > 1 && motionOK) {
     }
   };
   let current = 0;
+  // Progress bars under the hero: earlier photos full, the current one filling.
+  const bars = [...document.querySelectorAll('.hero-progress span')];
+  const markBars = (index) => bars.forEach((bar, i) => {
+    bar.classList.toggle('is-done', i < index);
+    bar.classList.remove('is-active');
+    if (i === index) { void bar.offsetWidth; bar.classList.add('is-active'); } // restart the fill
+  });
+  markBars(0);
+  const observer = new MutationObserver(() => {
+    const index = heroSlides.findIndex((slide) => slide.classList.contains('is-active'));
+    if (index >= 0) markBars(index);
+  });
+  heroSlides.forEach((slide) => observer.observe(slide, { attributes: true, attributeFilter: ['class'] }));
   load(heroSlides[1]);
   setInterval(() => {
     if (document.hidden) return;
@@ -220,6 +233,22 @@ if (heroSlides.length > 1 && motionOK) {
     };
     if (heroSlides[next].complete) show(); else heroSlides[next].addEventListener('load', show, { once: true });
   }, 6000);
+}
+
+// Hero parallax: as the page scrolls past the first screen, the text drifts down and fades
+// while the photos move a little slower. One CSS variable, updated once per frame.
+const heroForParallax = document.querySelector('.hero');
+if (heroForParallax && motionOK) {
+  let parallaxQueued = false;
+  const updateParallax = () => {
+    parallaxQueued = false;
+    const progress = Math.min(1, Math.max(0, window.scrollY / heroForParallax.offsetHeight));
+    heroForParallax.style.setProperty('--hero-scroll', progress.toFixed(3));
+  };
+  window.addEventListener('scroll', () => {
+    if (!parallaxQueued) { parallaxQueued = true; requestAnimationFrame(updateParallax); }
+  }, { passive: true });
+  updateParallax();
 }
 
 // ---------- Service carousel ----------
