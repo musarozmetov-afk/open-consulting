@@ -271,6 +271,7 @@ function initCarousel(root) {
     clone.setAttribute('aria-hidden', 'true');
     clone.setAttribute('tabindex', '-1');
     clone.classList.add('is-clone');
+    clone.querySelectorAll('a, button').forEach((control) => control.setAttribute('tabindex', '-1'));
     return clone;
   });
   for (let k = 0; k < SETS_EACH_SIDE; k += 1) {
@@ -454,9 +455,12 @@ const WHATSAPP_GREETING = 'Здравствуйте! Хочу получить �
 let whatsappNumber = '77075885577';
 
 function updateWhatsappLinks() {
-  const text = encodeURIComponent(localize(WHATSAPP_GREETING));
   document.querySelectorAll('[data-whatsapp-link]').forEach((link) => {
-    link.href = `https://wa.me/${whatsappNumber}?text=${text}`;
+    // Tariff buttons send "I would like to discuss the plan: <name>"; everything else the greeting.
+    const message = link.dataset.waText
+      ? `${localize(link.dataset.waText)} ${localize(link.dataset.waTopic || '')}`.trim()
+      : localize(WHATSAPP_GREETING);
+    link.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
   });
 }
 

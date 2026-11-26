@@ -284,6 +284,24 @@ h1 { max-width: 1000px; margin: 26px 0 26px; color: var(--ink); font-size: clamp
 .carousel-count { min-width: 64px; color: var(--muted); font-size: 13px; letter-spacing: .08em; text-align: center; }
 .carousel-count strong { color: var(--ink); }
 
+/* ---------- Pricing carousel ---------- */
+.tariffs { background: var(--ivory); }
+.tariff-card { position: relative; display: flex; flex: 0 0 clamp(280px, 26vw, 330px); flex-direction: column; padding: 30px 28px 28px; border: 1px solid var(--line); border-radius: 20px; background: #fff; scroll-snap-align: start; box-shadow: 0 2px 6px rgba(28, 29, 34, .04); transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s, border-color .35s; user-select: none; }
+.tariff-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.tariff-card.is-popular { border: 2px solid var(--orange); box-shadow: 0 26px 50px -30px rgba(255, 53, 13, .55); }
+.tariff-head { display: flex; align-items: center; justify-content: space-between; min-height: 28px; }
+.tariff-num { color: var(--orange-dark); font: italic 500 18px/1 var(--serif); }
+.tariff-badge { padding: 6px 12px; border-radius: 999px; background: var(--orange-btn); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.tariff-name { margin: 14px 0 6px; font: 500 28px/1.2 var(--serif); }
+.tariff-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0 0 22px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+.tariff-price strong { color: var(--ink); font: 700 clamp(30px, 2.6vw, 38px)/1 var(--font); letter-spacing: -.02em; white-space: nowrap; }
+.tariff-price span { color: var(--muted); font-size: 14px; }
+.tariff-list { display: grid; flex: 1; align-content: start; gap: 12px; margin: 0 0 26px; padding: 0; list-style: none; }
+.tariff-list li { position: relative; padding-left: 28px; color: var(--text); font-size: 15px; line-height: 1.5; }
+.tariff-list li::before { content: ""; position: absolute; top: .15em; left: 0; width: 18px; height: 18px; border-radius: 50%; background: var(--orange-soft); }
+.tariff-list li::after { content: ""; position: absolute; top: .45em; left: 6px; width: 7px; height: 4px; border-bottom: 2px solid var(--orange-dark); border-left: 2px solid var(--orange-dark); transform: rotate(-45deg); }
+.tariff-cta { width: 100%; }
+
 /* ---------- Service detail pages ---------- */
 .svc-hero { position: relative; padding: 40px 0 0; background: linear-gradient(180deg, #FFFFFF 0%, #F7F6F4 100%); }
 .breadcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
@@ -744,6 +762,7 @@ h1 { max-width: 1000px; margin: 26px 0 26px; color: var(--ink); font-size: clamp
   .carousel-track { gap: 14px; padding-inline: 16px; }
   .carousel-viewport { scroll-padding-inline: 16px; }
   .svc-card { flex-basis: 82vw; }
+  .tariff-card { flex-basis: 82vw; padding: 26px 22px 24px; }
   .svc-title { font-size: 22px; }
   .svc-text { -webkit-line-clamp: 6; min-height: calc(1.65em * 5); }
   .carousel-controls { gap: 12px; }
