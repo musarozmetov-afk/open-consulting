@@ -194,6 +194,34 @@ if (finePointer && motionOK) {
   });
 }
 
+// ---------- Hero photo background ----------
+// Cross-fades to the next photo every 6 s; each photo is downloaded just before its turn.
+// Stays on the first photo for reduced-motion visitors and pauses while the tab is hidden.
+const heroSlides = [...document.querySelectorAll('.hero-slide')];
+if (heroSlides.length > 1 && motionOK) {
+  const load = (slide) => {
+    if (slide.dataset.src) {
+      slide.srcset = slide.dataset.srcset;
+      slide.src = slide.dataset.src;
+      delete slide.dataset.src;
+      delete slide.dataset.srcset;
+    }
+  };
+  let current = 0;
+  load(heroSlides[1]);
+  setInterval(() => {
+    if (document.hidden) return;
+    const next = (current + 1) % heroSlides.length;
+    const show = () => {
+      heroSlides[current].classList.remove('is-active');
+      heroSlides[next].classList.add('is-active');
+      current = next;
+      load(heroSlides[(next + 1) % heroSlides.length]);
+    };
+    if (heroSlides[next].complete) show(); else heroSlides[next].addEventListener('load', show, { once: true });
+  }, 6000);
+}
+
 // ---------- Service carousel ----------
 // Native horizontal scrolling (so touch swipe, trackpads and keyboards just work) plus:
 // cloned sets on both sides for a seamless loop, autoplay that pauses on hover/focus/touch,
